@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { prisma } from "@/lib/prisma";
 import UserRoleUpdater from "@/components/userRoleUpdater";
 import { auth } from "@/auth";
