@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import OrderStatusUpdater from "@/components/orderStatusUpdater";
 import { prisma } from "@/lib/prisma";
 
