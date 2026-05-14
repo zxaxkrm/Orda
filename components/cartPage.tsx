@@ -4,7 +4,7 @@ import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useCartStore } from "@/store/cartStore";
 import Link from "next/link";
-import CheckoutButton from "@/components/checkOutButton";
+import CheckoutButton from "./checkOutButton";
 
 
 
