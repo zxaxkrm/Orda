@@ -10,7 +10,7 @@ export async function POST(req: Request){
         return NextResponse.json({error: "Unauthorized"}, {status: 401})
     }
 
-    const {items, total} = await req.json();
+    const {items, total, status, paymentReference} = await req.json();
 
       const user = await prisma.user.upsert({
     where: { email: session.user.email },
@@ -30,9 +30,11 @@ export async function POST(req: Request){
         data: {
             userId: user.id,
             total,
+            status: status ?? "pending",
+            paymentReference: paymentReference ?? null,
             items: {
                 create: items.map((item: CartItem)=>({
-                    productId: item.id,
+                    productId: String(item.id),
                     title: item.title,
                     price: item.price,
                     quantity: item.quantity,

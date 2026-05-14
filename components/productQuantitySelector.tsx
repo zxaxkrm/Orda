@@ -2,7 +2,7 @@
 
 import { CartItem, useCartStore } from "@/store/cartStore";
 
-const SquareSelector = ({item}:{item: CartItem}) => {
+const ProductQuantitySelector = ({item}:{item: CartItem}) => {
 const updateQuantity = useCartStore((s) => s.updateQuantity);
   const removeItem = useCartStore((s) => s.removeItem);
 
@@ -35,4 +35,4 @@ const decrease = ()=> {
     </div>
   )}
 
-export default SquareSelector;
+export default ProductQuantitySelector;

@@ -3,12 +3,12 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function OrderList(){
-     const session = await auth();
+export default async function OrderList() {
+  const session = await auth();
 
-     if (!session?.user?.email) {
-  return null; 
-}
+  if (!session?.user?.email) {
+    return null;
+  }
 
   const user = await prisma.user.findUnique({
     where: { email: session?.user?.email },
@@ -20,11 +20,14 @@ export default async function OrderList(){
     },
   });
 
- if (!user || user.orders.length === 0) {
+  if (!user || user.orders.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <p className="text-gray-500 text-sm">You have no orders yet.</p>
-        <Link href="/products" className="mt-4 text-sm text-[#5d00d6] underline">
+        <Link
+          href="/products"
+          className="mt-4 text-sm text-[#5d00d6] underline"
+        >
           Start Shopping
         </Link>
       </div>
@@ -32,8 +35,8 @@ export default async function OrderList(){
   }
 
   return (
-     <div>
-        <div className="max-sm:hidden">
+    <div>
+      <div className="max-sm:hidden">
         <table className="w-full border-collapse">
           <thead>
             <tr className="text-left border-b">
@@ -49,7 +52,9 @@ export default async function OrderList(){
           <tbody>
             {user?.orders.map((order) => (
               <tr key={order.id} className="border-b">
-                <td className="py-4 font-medium">#{order.id.slice(-6).toUpperCase()}</td>
+                <td className="py-4 font-medium">
+                  #{order.id.slice(-6).toUpperCase()}
+                </td>
 
                 <td>{new Date(order.createdAt).toLocaleDateString()}</td>
 
@@ -79,9 +84,9 @@ export default async function OrderList(){
                 </td>
 
                 <td>
-                 <Link href={`/orders/${order.id}`}>
-                  <button className="text-sm underline">View</button>
-                 </Link>
+                  <Link href={`/orders/${order.id}`}>
+                    <button className="text-sm underline">View</button>
+                  </Link>
                 </td>
               </tr>
             ))}
@@ -94,13 +99,19 @@ export default async function OrderList(){
           {user?.orders.map((order) => (
             <div key={order.id} className="border rounded-lg p-4 space-y-3">
               <div className="flex justify-between">
-                <p className="font-semibold">#{order.id.slice(-6).toUpperCase()}</p>
-                <span className={`text-xs  px-2 rounded ${order.status === "delivered" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+                <p className="font-semibold">
+                  #{order.id.slice(-6).toUpperCase()}
+                </p>
+                <span
+                  className={`text-xs  px-2 rounded ${order.status === "delivered" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}
+                >
                   {order.status}
                 </span>
               </div>
 
-              <p className="text-sm text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</p>
+              <p className="text-sm text-gray-500">
+                {new Date(order.createdAt).toLocaleDateString()}
+              </p>
 
               <div className="flex gap-2">
                 {order.items.slice(0, 3).map((item) => (
@@ -117,12 +128,14 @@ export default async function OrderList(){
 
               <div className="flex justify-between items-center">
                 <p className="font-bold">${order.total}</p>
-                <button className="text-sm underline">View Details</button>
+                <Link href={`/orders/${order.id}`}>
+                  <button className="text-sm underline">View Details</button>
+                </Link>
               </div>
             </div>
           ))}
         </div>
       </div>
-      </div>
-  )
+    </div>
+  );
 }

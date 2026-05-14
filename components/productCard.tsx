@@ -14,8 +14,9 @@ const ProductCardPage = ({ item }: { item: Product }) => {
               src={item.thumbnail}
               alt="tv"
               fill
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, 25vw"
               className="w-full object-contain rounded-xl"
+              loading="lazy"
             />
           </div>
 

@@ -1,5 +1,4 @@
 "use client";
-import { getProductsByCategory } from "@/lib/api";
 import { Category, Product } from "@/lib/types";
 import { ChevronRight, X } from "lucide-react";
 import Image from "next/image";
@@ -17,8 +16,9 @@ export default function Categories({ categ }: { categ: Category[] }) {
     setSelected(name);
     if (!isOpen) setIsOpen(true);
     setLoading(true);
-    const data = await getProductsByCategory(slug, 20);
-    setProducts(data.products);
+   const res = await fetch(`/api/products/category/${slug}?limit=20`);
+  const data = await res.json();
+  setProducts(data.products);
     setLoading(false);
   };
 
@@ -33,7 +33,7 @@ export default function Categories({ categ }: { categ: Category[] }) {
               className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition-colors text-left"
             >
               {/* <cat.icon className="w-5 h-5 text-gray-600 shrink-0"/> */}
-              <span className="text-lg font-medium text-gray-800 flex-1">
+              <span className="text-lg capitalize font-medium text-gray-800 flex-1">
                 {cat.name}
               </span>
               <ChevronRight className="w-4 h-4 text-gray-400 shrink-0" />

@@ -3,8 +3,8 @@ import { Trash2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
-import SquareSelector from "./squareSelect";
-import CheckoutButton from "./checkoutButton";
+import SquareSelector from "./productQuantitySelector";
+import CheckoutButton from "./checkOutButton";
 
 const CartBar = () => {
    const { isCartOpen, closeCart, items, removeItem } = useCartStore();

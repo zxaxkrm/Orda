@@ -6,6 +6,11 @@ import { ProductGridSkeleton } from "@/components/skeletons";
 
 const PAGE_SIZE = 24;
 
+export const metadata = {
+  title: "All Products",
+  description: "Browse all products on Orda.",
+};
+
 export default function Page({
   searchParams,
 }: {

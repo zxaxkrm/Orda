@@ -2,6 +2,10 @@ import OrderList from "@/components/orderList";
 import Spinner from "@/components/spinner";
 import { Suspense } from "react";
 
+export const metadata = {
+  title: "My Orders",
+};
+
 const page = async () => {
    
 

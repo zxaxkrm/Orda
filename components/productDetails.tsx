@@ -4,14 +4,16 @@ import StarRating from '@/components/starRating';
 import { getProductById } from '@/lib/api';
 import Image from 'next/image';
 import Link from 'next/link';
+import SquareSelector from './productQuantitySelector';
+import ProductQuantitySelector from './productQuantitySelector';
 import QuantitySelector from './quantitySelector';
+import ProductReviews from './productReviews';
 
-export default async function ProductDetails({ params }: { params: Promise<{ id: number }> }){
+export default async function ProductDetails({ params }: { params: Promise<{ id: string }> }){
 
     const {id} = await params;
 
 const data = await getProductById(id);
-console.log(data);
   return (
        <div className='min-h-dvh py-10 sm:flex gap-2 px-3'>
         <section className='flex'>
@@ -23,7 +25,7 @@ console.log(data);
                 ))}
             </div>
          <div>
-        <Image src={data.thumbnail} alt={data.title} width={500} height={500} className='bg-[#e3e3e3]'/> 
+        <Image src={data.thumbnail} alt={data.title} width={500} height={500} priority className='bg-[#e3e3e3]'/> 
         </div>   
         </section>
 
@@ -31,7 +33,7 @@ console.log(data);
           <div className='space-y-1'>
               <h1 className='text-2xl font-semibold'>{data.title}</h1>
             <div className="text-xs">
-                      <span>NGN</span>
+                      <span>$</span>
                       <span>{data.price.toLocaleString()}</span>
                     </div>
                     <StarRating rating={data.rating}/>
@@ -61,6 +63,7 @@ console.log(data);
           </div>
 
           <ProductInfo productData={data}/>
+          <ProductReviews productId={data.id}/>
         </section>
     </div>
   )

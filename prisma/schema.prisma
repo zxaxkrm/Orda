@@ -16,15 +16,18 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
+  role      String   @default("user") // "user" or "admin"
   createdAt DateTime @default(now())
   orders    Order[]
+  reviews   Review[]
 }
 
 model Order {
   id         String      @id @default(cuid())
   userId     String
   user       User        @relation(fields: [userId], references: [id])
-  status     String      @default("pending") // pending, processing, shipped, delivered
+  status     String      @default("pending") // paid, pending, processing, shipped, delivered
+  paymentReference String?
   total      Float
   createdAt  DateTime    @default(now())
   items      OrderItem[]
@@ -34,9 +37,39 @@ model OrderItem {
   id        String @id @default(cuid())
   orderId   String
   order     Order  @relation(fields: [orderId], references: [id])
-  productId Int    // DummyJSON product id
+  productId String   
   title     String
   price     Float
   quantity  Int
   thumbnail String
+}
+
+
+model Product {
+  id          String   @id @default(cuid())
+  externalId  Int?     @unique // DummyJSON id (for seeding reference)
+  title       String
+  description String
+  price       Float
+  stock       Int      @default(0)
+  category    String
+  thumbnail   String   // ImageKit URL
+  images      String[] // ImageKit URLs
+  rating      Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  reviews     Review[]
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  rating    Int      // 1-5
+  comment   String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId]) // one review per user per product
 }

@@ -10,11 +10,11 @@ export default function ProductInfo({productData}:{productData: Product}) {
   const items = [
   {
     title: "Product Info",
-    content: `${productData.description}. Dimension: ${productData.dimensions}`
+    content: `${productData.description}`
   },
   {
     title: "Shipping Info",
-    content: productData.shippingInformation
+    content: "Standard shipping takes 3-7 business days. Express shipping available at checkout."
   },
   {
     title: "Return & Refund Policy",
