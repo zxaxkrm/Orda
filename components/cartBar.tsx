@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import SquareSelector from "./productQuantitySelector";
-import CheckoutButton from "./checkOutButton";
+import CheckoutButton from "./checkoutButton";
 
 const CartBar = () => {
    const { isCartOpen, closeCart, items, removeItem } = useCartStore();
